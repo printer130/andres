@@ -6,7 +6,6 @@ export const useUser = () => {
 
   const [user, setUser] = useState(undefined)
   const router = useRouter()
-  // const userT = useContext(UserContextProvider)
 
   useEffect(() => {
 

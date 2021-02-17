@@ -1,18 +1,24 @@
-import { Children } from 'react';
-
+import { HomeHeader } from '../../components/homeHeader'
+import { Footer } from '../../components/footer'
+import Home from '../../pages';
+import { useAuth } from '../../context/userContext'
+// import { onRegisterToken } from '../../firebase-messaging-sw'
 
 export default function Layout({ children }) {
+  const { user } = useAuth()
 
   return <div className='layout'>
+    <HomeHeader user={user} />
     {children}
+    {
+      user && <Footer />
+    }
     <style jsx>{`
-
     .layout {
       display:flex;
-      background: #e1e1e1;
       width: 100%;
       height: 100vh;
-      padding: 2em;
+      padding: 0;
       flex-direction: column;
     }
 `}</style>

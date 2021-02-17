@@ -1,8 +1,8 @@
 import { firestoreAdmin } from '../../../firebase/admin'
 
-export default (req, res) => {
+export default function (req, res) {
+  console.log("[TOKEN]", token);
 
-  const { query } = req
   let tempDoc = []
 
   return firestoreAdmin
@@ -15,7 +15,7 @@ export default (req, res) => {
           ...doc.data()
         })
       })
-      return res.send({ "collection": tempDoc })
+      res.send({ "collection": tempDoc })
     })
     .catch(e => {
       res.status(301).end()

@@ -7,7 +7,8 @@
 
 # testing
 /coverage
-
+**/public/workbox-*.js
+**/public/sw.js
 # next.js
 /.next/
 /out/
@@ -34,3 +35,7 @@ yarn-error.log*
 .vercel
 
 .vercel
+
+
+# env
+/.env

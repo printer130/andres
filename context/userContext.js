@@ -1,33 +1,27 @@
-import { createContext, useEffect, useState } from 'react'
+import { createContext, useEffect, useState, useContext } from 'react'
 import { onAuthStateChanged } from '../firebase/client'
+import { useRouter } from 'next/router'
 
-const CounterContex = createContext({})
+const CounterContext = createContext()
+
+export const useAuth = () => useContext(CounterContext)
+
 export const UserContextProvider = ({ children }) => {
-
-  const [user, setUser] = useState([])
+  const [user, setUser] = useState(null)
+  const router = useRouter()
 
   useEffect(() => {
-    onAuthStateChanged(setUser)
+    let unsubscribe
+    unsubscribe = onAuthStateChanged(setUser)
+    return () => unsubscribe && unsubscribe()
   }, [setUser])
-
-  let auth = false
-
-  if (user?.uid === '6wcsUOM163dqLVHVbP4y0jtdwJ72') {
-    auth = true
-  }
 
   const value = {
     user,
-    setUser,
-    auth
+    setUser
   }
 
-  return <CounterContex.Provider value={value}>
+  return <CounterContext.Provider value={value}>
     {children}
-  </CounterContex.Provider>
-}
-
-export default {
-  Provider: UserContextProvider,
-  Consumer: CounterContex.Consumer
+  </CounterContext.Provider>
 }

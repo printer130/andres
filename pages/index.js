@@ -1,129 +1,113 @@
-import { useEffect } from 'react'
-import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import { useUser } from '../hooks/useUser'
 import { useRouter } from 'next/router'
-// import Login from '../container/login'
-import Link from 'next/link'
-
+import Image from 'next/image'
+import Head from 'next/head'
+// import { msg } from '../firebase/client'
+// import { getTokenMessaging } from '../firebase/client'
 
 export default function Home() {
-
-  // const { user, nombre } = useContext(UserContextProvider)
-  const user = useUser()
-
   const router = useRouter()
-
-  useEffect(() => {
-    return user && router.replace('/home')
-  }, [user])
-
-
+  // const tk = getTokenMessaging()
+  // console.log("TOKEN", tk);
+  // msg.getToken(token => console.log(token))
+  // getTokenMessaging()
   return (
-    <div className={styles.container}>
+    <div className={styles.container} >
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>ATSports</title>
       </Head>
-
-
-      <nav>
-        <label className='menu' id="toggle">
-          <input className='menu-checkbox' htmlFor='toggle' type="checkbox" id="menu-checkbox" />
-          {/* <span className='menu' id="toggle"> */}
-          <div className='bar1'></div>
-          <div className='bar2'></div>
-          <div className='bar3'></div>
-          <div className='open-menu'>
-            Este es el menu
+      <section>
+        <div className='image'>
+          <Image
+            width={500}
+            objectFit='contain'
+            height={335}
+            className='image'
+            src='https://res.cloudinary.com/djc1umong/image/upload/v1608832130/fotoself_eutmdi.jpg'
+            alt="andres torrico"
+          />
+        </div>
+        <div>
+          <h1> Cuida la salud,<br /> lo estético <br />llegara</h1>
+        </div>
+        <main>
+          <h3>Consejos</h3>
+          <ul>
+            <li>
+              El calentamiento de los músculos es como un engrase del motor. Hara que tu cuerpo flexible funcione mejor con una adecuada rutina de calentamiento
+            </li>
+            <li>
+              Ponte derecho en el ejercicio. Hacerlos encorvado creará más espacio para las lesiones de espalda y cuello.
+            </li>
+            <li>
+              Utiliza todos sus músculos cuando haga ejercicios y en la gama completa. Esto te dará los resultados óptimos.
+            </li>
+            <li>
+              Mantén el control del peso de las pesas y la velocidad de los equipos de cardio.
+            </li>
+            <li>
+              Mantener una rutina a un ritmo más lento y controlado te dara más control del ejercicio y más resistencia.
+            </li>
+          </ul>
+        </main>
+        <footer>
+          <div>
+            <p>cocacola</p>
+            <p>Crossfit</p>
           </div>
-        </label>
-        {/* </span> */}
-        <span>Logo</span>
-        <span>
-          <Link href='/login'>
-            <a>
-              Login
-            </a>
-          </Link>
-        </span>
-      {/* <Login user={user} /> */}
-
-      </nav>
+          <div>
+            El grinch promociona esto 🌈
+          </div>
+        </footer>
+      </section>
       <style jsx>{`
-      .open-menu {
-         display: none;
-         visibility: hidden;
-         background: blue;
-        }
-        .menu {
-          display: block;
-          cursor: pointer;
-          user-select: none;
-          align-self: center;
-        }
-        .menu-checkbox:checked ~ .open-menu {
-          display: block;
-          position: absolute;
-          visibility: visible;
-          top: 45px;
-          right: 20%;
-          left: 0;
-          height: 90vh;
-          border: 5px solid red;
-      }
-
-      .menu-checkbox {
-        // visibility: hidden;
-        display: none;
-      }
-      .menu-checkbox:checked ~ .bar1 {
-        background: black;
-        transform: rotate(-45deg) translate(-4px, 5px) ;
-        -webkit-transform: rotate(-45deg) translate(-4px, 5px) ;
-        
-      }
+    .image {
+      padding-bottom: -2em;
+      background-color: black;
+      box-shadow: 0 0 50px 50px black
+    }
+    section {
+      position: relative;
+      top: 40px;
+      color: #fff;
+      left: 0;
+      background: #222;
+      right: 0;
+      height: 100vh;
+    }
+    h1 {
+      text-align: center;
+      font-size: 1.8em;
+      letter-spacing: 2px;
+      line-height: 1.4;
+      font-weight: 800;
+      color: #ffd900;
       
-      .menu-checkbox:checked ~  .bar2 {
-        background: black;
-        transform: rotate(-45deg) translate(-4px, 5px) ;
-        -webkit-transform: rotate(-8deg) translate(-50px, -80px) ;
-        
-      }
-      
-      .menu-checkbox:checked ~  .bar3 {
-        background: black;
-        transform: rotate(45deg) translate(-6px, -8px) ;
-        -webkit-transform: rotate(45deg) translate(-6px, -8px) ;
-      }
-
-      .bar1, .bar2, .bar3 {
-        margin: 3px 0;
-        height: 5px;
-        width: 28px;
-        background: red;
-        border-radius: 5px;
-        transition: 0.4s;
-        will-change: transform;
-      }
-
-        nav {
-          display: flex;
-          height: 48px;
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          margin: 3px 0px;
-          padding: 0 .6em;
-          justify-content: space-between;
-          box-shadow: 0 5px 10px 2px rgba(0,0,0, .1);
-        }
-        span {
-          align-self: center;
-        }
+    }
+    main {
+      background: #222;
+      margin-top: 3em;
+    }
+    h3{
+      margin:0 auto;
+      font-size: 1.6em;
+      text-decoration: underline;
+      padding-bottom: 1em;
+      text-align: center;
+    }
+    ul {
+      width: 270px;
+      margin: 0 auto;
+    }
+    footer {
+      background: #222;
+      display: flex;
+      height: 350px;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+    }
       `}</style>
     </div >
-
   )
 }
