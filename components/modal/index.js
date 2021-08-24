@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
-import { createNewCustomerFirebase } from '../../firebase/client'
+import { createNewCustomerFirebase, uploadFilesWithId } from '../../firebase/client'
 import { useInputValues } from '../../hooks/useInputValues'
 import ReactDOM from 'react-dom'
 import { Button } from '../button'
-
+import { useHandleFilesFirebase } from '../../hooks/useHandleFilesFirebase'
 
 function Modal({ children, onClose, user }) {
   const [disabled, setDisabled] = useState(true)
+  const [file, setFile] = useState(null)
   const [loading, setLoading] = useState(false)
   const { username, weight, age, heigth, evaluation, fat, muscle, onChange, renew } = useInputValues({
     username: '',
@@ -27,21 +28,34 @@ function Modal({ children, onClose, user }) {
       heigth &&
       evaluation &&
       renew &&
+      age &&
       muscle) {
       setDisabled(false)
     } else {
       setDisabled(true)
     }
-  }, [fat, username, weight, heigth, evaluation, muscle, renew])
+  }, [fat, username, weight, heigth, evaluation, muscle, renew, age])
 
   const handleSubmitCreateNewCustomer = () => {
     setDisabled(true)
     setLoading(true)
+    uploadFilesWithId(file, username)
     createNewCustomerFirebase({ username, fat, weight, heigth, evaluation, muscle, age, renew })
       .then(() => {
         setLoading(false)
         onClose()
       })
+  }
+
+  const handleChangeFile = (e) => {
+    //const file = e.nativeEvent.target.files[0]
+    setFile(e.nativeEvent.target.files[0])
+    //console.log(file)
+    //const task = uploadFilesWithId(file, username)
+    //setTask(task)
+  }
+  const handleOnDropFile = e => {
+    console.log(e);
   }
 
   return <section>
@@ -78,6 +92,9 @@ function Modal({ children, onClose, user }) {
         <label>Indice de masa muscular: <span>IMC</span></label>
         <input type="text" name='muscle' onChange={onChange} value={muscle} />
 
+        <label>Docs</label>
+        <input type='file' name='docs' onChange={handleChangeFile} onDrop={handleOnDropFile} />
+
         <label >Control y/o evaluacion: </label>
         <input type="date" id="date" name="evaluation"
           value={evaluation}
@@ -97,13 +114,13 @@ function Modal({ children, onClose, user }) {
     </div>
     <style jsx>{`
   section {
-    position: fixed;
+    position: absolute;
     top: 1.7em;
     left: 0;
     right: 0;
     overflow-y: scroll;
     padding-bottom: 3em;
-    height: 120%;
+    background-color: var(--alabaster);
     bottom: 0;
     scroll-behavior: smooth;
   }
@@ -126,8 +143,10 @@ function Modal({ children, onClose, user }) {
     padding: 5px;
     border-radius: 6px;
     color: #111;
+    min-height: 40px;
     letter-spacing: 1px;
   }
+
   div {
     background: #cfcfcfff;
     width: 100%;

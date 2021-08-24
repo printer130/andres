@@ -10,6 +10,7 @@ export const UserContextProvider = ({ children }) => {
   const [user, setUser] = useState(null)
   const router = useRouter()
 
+  
   useEffect(() => {
     let unsubscribe
     unsubscribe = onAuthStateChanged(setUser)

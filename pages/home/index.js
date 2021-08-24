@@ -65,6 +65,11 @@ export default function HomePage() {
       
       .button-customers {
         display: flex;
+        width: 125px;
+        margin: 2em auto;
+        padding: 5px;
+        background: var(--alabaster);
+        color: var(--jazzberry-jam);
         justify-content: center;
       }
     `}</style>

@@ -3,7 +3,6 @@ import 'firebase/auth'
 import 'firebase/firestore'
 import 'firebase/storage'
 import 'firebase/messaging'
-// import { app, auth, db } from '../firebase-messaging-sw'
 
 const firebaseConfig = {
   apiKey: "AIzaSyD5VNetBeymgJr-FxCXUUvH-6m9_4aPung",
@@ -15,6 +14,7 @@ const firebaseConfig = {
   measurementId: "G-3WRD6JGE8N"
 }
 
+const VAP_ID_KEY = 'AAAA9aBQPGo:APA91bF2YQ8y4xEinqezfeuWiwt5nvBz_Ua94-keFkRV3jugo2eEEJbOg0RQsO-JA6_y6ueAJIOEwlOKxPILdC6Z9OB1T97znKAq5aKrOJ_mvk8HjKGe9Tlyib8zxgl3yjAbn920ji9I'
 
 const app = !firebase.apps.length
   ? firebase.initializeApp(firebaseConfig)
@@ -22,20 +22,13 @@ const app = !firebase.apps.length
 
 const auth = app.auth()
 const db = app.firestore()
-// export const msg = app.messaging()
 
-
-
-const VAP_ID_KEY = 'AAAA9aBQPGo:APA91bF2YQ8y4xEinqezfeuWiwt5nvBz_Ua94-keFkRV3jugo2eEEJbOg0RQsO-JA6_y6ueAJIOEwlOKxPILdC6Z9OB1T97znKAq5aKrOJ_mvk8HjKGe9Tlyib8zxgl3yjAbn920ji9I'
-
-// export const getTokenMessaging = () => {
-  // if (typeof window !== 'undefined' && window.document) {
-    // const messaging = app.messaging()
-    // messaging.getToken({ vapidKey: VAP_ID_KEY })
-    //   .then(currentToken => console.log(currentToken))
-  // }
-// }
-
+export const getTokenMessaging = () => {
+  if (typeof window !== 'undefined' && window.document) {
+    const msg = app.messaging()
+    msg.getToken({ vapidKey: VAP_ID_KEY }).then((token) => console.log(token))
+  }
+}
 
 export const loginWithEmailAndPassword = ({ email, password }) => {
   return auth.signInWithEmailAndPassword(email, password)
@@ -95,6 +88,7 @@ export const updateUser = async ({
   evaluation,
   id,
   fat,
+  docs,
   muscle,
   createdAt,
   renew
@@ -107,6 +101,7 @@ export const updateUser = async ({
     evaluation,
     uid: id,
     fat,
+    docs,
     muscle,
     createdAt: app.firestore.Timestamp.now(),
     renew
@@ -117,6 +112,8 @@ export const updateUser = async ({
 
 export const createNewCustomerFirebase = (newCustomer) => {
   const { username, fat, weight, heigth, evaluation, muscle, age, renew } = newCustomer
+
+
   return db.collection('customers').add({
     username,
     fat,
@@ -163,4 +160,33 @@ export const uploadPhotoProfile = (file) => {
   return task
 }
 
+export const uploadFilesWithId = (file, id) => {
+  const ref = firebase.storage().ref(`images/${id}/${file.name}`)
+  const task = ref.put(file)
+  return task
+}
+
+export const getUploadedFiles = async (id) => {
+  let array = []
+  const ref = firebase.storage().ref(`images/${id}`)
+  const dos = await ref.listAll()
+    .then(res => {
+      res.items.forEach(async itemRef => {
+        const url = await itemRef.getDownloadURL()
+        const xhr = new XMLHttpRequest()
+        xhr.responseType = 'blob'
+        xhr.onload = function (event) {
+          const blob = xhr.response
+        }
+        xhr.open('GET', url)
+        xhr.send()
+        array.push(url)
+        return url
+      })
+    })
+    .catch(e => console.log(e))
+  return array
+}
+
 export default app
+

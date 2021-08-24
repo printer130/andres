@@ -101,6 +101,7 @@ export default function Login() {
     <style jsx>{`
     section {
       margin-top: 1em;
+      background: var(--alabaster);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -110,7 +111,6 @@ export default function Login() {
     }
     input:focus {
       border-radius: 4px;
-      box-shadow: 0 0 4px 4px rgba(0, 0, 0, .7);
       outline: none;
     }
     h1 {
@@ -118,14 +118,14 @@ export default function Login() {
       font-weight: 500;
       font-size: 1.5em;
       letter-spacing: -.2px;
-      color: rgba(0,0,0,.85);
+      color: var(--jazzberry-jam);
       line-height: 32px;
     }
     input {
       margin: .3em 0 0 0;
       user-select: auto;
       border-radius: 4px;
-      border: 1px solid #222222aa;
+      border: 1px solid var(--black);
       letter-spacing: 1px;
       font-size: 1em;
       width: 100%;
@@ -187,15 +187,15 @@ export default function Login() {
       align-items: center;
       flex-direction: column;
     }
-      #customBtn {
-      display: inline-block;
-      background: white;
-      color: #444;
-      width: 190px;
-      border-radius: 5px;
-      border: thin solid #888;
-      box-shadow: 1px 1px 1px grey;
-      white-space: nowrap;
+    #customBtn {
+    display: inline-block;
+    background: white;
+    color: #444;
+    width: 190px;
+    border-radius: 5px;
+    border: thin solid #888;
+    box-shadow: 1px 1px 1px grey;
+    white-space: nowrap;
     }
     #customBtn:hover {
       cursor: pointer;

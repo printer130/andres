@@ -20,7 +20,7 @@ export const HomeHeader = () => {
   }
   const hanldeChangePhoto = () => {
     console.log('object');
-    
+
   }
 
   return <header>
@@ -54,19 +54,19 @@ export const HomeHeader = () => {
 
     <style jsx>{`
   header {
-    display: flex;
-    z-index: 1;
-    justify-content: space-between;
     position: fixed;
+    display: flex;
+    z-index: 999;
+    justify-content: space-between;
     top: 0;
     left: 0;
     align-items: center;
     right: 0;
-    border-bottom: 1px solid #222;
+    border-bottom: 1px solid var(--jazzberry-jam);
     width: 100%;
-    height: 63px;
-    background-color: #111;
-    box-shadow: 0px 15px 14px -15px rgba(255,255,255,.3);
+    height: 64px;
+    background: var(--eerie-black);
+    z-index: 10000;
   }
  .container main img {
     border-radius: 50%;
@@ -77,9 +77,9 @@ export const HomeHeader = () => {
   #login {
     display: ${router.route === '/login' ? 'none' : 'block'};
     padding: .2em;
-    color: #222;
+    color: var(--eerie-black);
     font-weight: 500;
-    background-color: #ffd900;
+    background-color: var(--gold);
     border-radius: .7em;
     line-height: 1.1;
     font-size: 1em;
@@ -119,6 +119,17 @@ export const HomeHeader = () => {
   }
   .container:hover {
     cursor: pointer;
+  }
+
+  @media (min-width: 490px){
+    header {
+      padding: 0 2rem;
+    }
+  }
+  @media(min-width: 668px) {
+    header {
+      padding: 0 7rem;
+    }
   }
 `}</style>
   </header >

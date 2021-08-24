@@ -1,21 +1,26 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { get, updateUser, deleteUser } from '../../firebase/client'
+import { get, updateUser, deleteUser, getUploadedFiles } from '../../firebase/client'
 import { Button } from '../../components/button'
 import Head from 'next/head'
+
 
 export default function Details({ user }) {
   const router = useRouter()
   const [getUserById, setGetUserById] = useState(null)
   const [disabled, setDisabled] = useState(false)
   const [deleted, setDeleted] = useState(false)
+  const [files, setFiles] = useState([])
 
   if (router.isFallback) return 'Loading'
   useEffect(() => {
     get({ id: router.query.id })
       .then(setGetUserById)
-
   }, [])
+
+  useEffect(() => {
+    getUserById !== null && getUploadedFiles(getUserById.username).then(res => setFiles(res))
+  }, [getUserById])
 
   const onChange = e => {
     setGetUserById({
@@ -23,6 +28,8 @@ export default function Details({ user }) {
       [e.target.name]: e.target.value
     })
   }
+
+
   const handleDelete = () => {
     setDisabled(true)
     deleteUser(router.query.id)
@@ -30,8 +37,8 @@ export default function Details({ user }) {
         setDisabled(false)
         router.replace('/users')
       })
-
   }
+
 
   const handleUpdate = e => {
     updateUser({
@@ -51,10 +58,12 @@ export default function Details({ user }) {
   if (getUserById === undefined) {
     router.replace('/home')
   }
-  
+  console.log('files', files[0])
+
+
   return <section>
     <Head>
-      <title>Club AtSports - {getUserById.username}</title>
+      <title>AtSports - {getUserById.username}</title>
     </Head>
     {
       deleted && <main>
@@ -66,7 +75,7 @@ export default function Details({ user }) {
       </main>
     }
     <h2>{getUserById.username}</h2>
-    <span onClick={() => router.back()}> 👈 </span>
+    <span onClick={() => router.back()}> 👈 <span> Atras </span></span>
     <div className='container'>
       <div className='attribute-container'>Nombre: </div>
       <input name='username' onChange={onChange} className='attribute-container' value={getUserById.username} />
@@ -109,6 +118,13 @@ export default function Details({ user }) {
         onChange={onChange}
         min="2015-01-01" max="2099-12-31" />
     </div>
+    {
+      files.length >= 1 && files.map(file => <img src={file} alt="andres torrico" />)
+    }
+    {
+
+      files && <img src={files[0]} alt="imagen" />
+    }
     <div>
       <Button disabled={disabled} onClick={handleUpdate} >Actualizar</Button>
     </div>
@@ -116,6 +132,10 @@ export default function Details({ user }) {
       <Button disabled={disabled} bg='red' onClick={() => setDeleted(true)} >Delete</Button>
     </div>
     <style jsx>{`
+    img {
+      width: 200px;
+      height: 200px;
+    }
       section {
         padding-top: 2.3em;
         margin-top: 63px;

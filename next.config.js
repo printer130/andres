@@ -1,20 +1,20 @@
-const withPWA = require('next-pwa')
 
 
-module.exports = withPWA({
-  images: {
-    domains: ['res.cloudinary.com']
-  },
-  pwa: {
-    dest: 'public',
-    sw: '/sw.js',
-    register: false,
-    scope: '/'
-  }
-})
-
-// module.exports = {
+// module.exports = withPWA({
 //   images: {
 //     domains: ['res.cloudinary.com']
+//   },
+//   pwa: {
+//     disable: process.env.NODE_ENV === 'development',
+//     dest: 'public',
+//     sw: '/sw.js',
+//     register: false,
+//     scope: '/'
 //   }
-// }
+// })
+
+module.exports = {
+  images: {
+    domains: ['res.cloudinary.com']
+  }
+}

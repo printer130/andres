@@ -1,0 +1,14 @@
+body {
+  background-color: aliceblue;
+  color:red;
+}
+h1{
+  color: blue;
+}
+:root {
+
+  --eerie-black: #fff;
+}
+.takecarehealth {
+  background-color: red;
+}
