@@ -48,6 +48,7 @@ export default function Services() {
     padding: 1rem;
     background-color: var(--andres-color);
     color: var(--alabaster);
+    max-width: 400px;
   }
   h4 {
     color: var(--ruby);
@@ -56,6 +57,14 @@ export default function Services() {
     .bullshit-container{
     padding: 3em 8rem;
     flex-direction: row;
+  }
+  }
+  @media only screen and (max-width: 769px) {
+    h3 {
+      color: var(--jazzberry-jam);
+      backdrop-filter: blur(2px);
+      max-width: 300px;
+      margin:0 auto;
   }
   }
 

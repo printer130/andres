@@ -8,10 +8,11 @@ export default function Contact() {
     <section className='contact' id='contacts'>
       <h3>Contactame por nuestras redes Sociales</h3>
       <div className='contact-container'>
-        <Link 
+        <Link
             href='https://api.whatsapp.com/send/?phone=59170786026&text&app_absent=0'
-          >
-          <a>
+            >
+             
+          <a target='_blank' rel="noreferer">
             <span><Whatsapp /></span>
           </a>
         </Link>

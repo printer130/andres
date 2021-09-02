@@ -4,8 +4,6 @@ export default function Nav() {
       <div className='navbar-container'>
         <a className='navbar-container__a' href="#services"><span>Servicios</span></a>
         <a className='navbar-container__a' href="#contacts"><span>Contactanos</span></a>
-        <a className='navbar-container__a' href="#products"><span>Productos</span></a>
-        <a className='navbar-container__a' href="#location"><span>Ubicacion</span></a>
       </div>
     </nav>
     <style jsx>{`

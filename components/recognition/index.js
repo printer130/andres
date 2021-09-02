@@ -2,7 +2,7 @@ import Rope from '../icons/rope'
 export default function Recognition() {
   return <>
     <section className='recognition'>
-      <h3>Prof. Andres Torrico Becerra</h3>
+      <h3>Andres Torrico Becerra</h3>
       <div>
         <img src="/self.jpeg" alt="logo facilitador" />
         <p>Especialista en nutricion deportiva (I.C.N.S)
